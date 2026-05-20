@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Liam Haynie — Engineering Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ─── DESIGN TOKENS ─────────────────────────────────────── */
+    :root {
+      --bg:        #0f2318;   /* deep dark green — page background */
+      --surface:   #1a3a28;   /* lighter green — content bands */
+      --surface-2: #1f4530;   /* card body background */
+      --rule:      #2d5c3f;   /* borders */
+      --ink:       #e8f5ec;   /* near-white text */
+      --ink-muted: #8fbfa0;   /* muted green-tinted text */
+      --accent:    #4ade80;   /* bright mint — highlights */
+      --tag-bg:    #163324;
+      --tag-ink:   #86efac;
+      --max-w:     1080px;
+      --radius:    8px;
+    }
+
+    /* ─── RESET & BASE ──────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    h1, h2, h3 {
+      font-family: 'DM Serif Display', serif;
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { display: block; max-width: 100%; height: auto; object-fit: cover; }
+
+    /* ─── LAYOUT ─────────────────────────────────────────────── */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+    section { padding: 72px 0; }
+
+    .surface-band {
+      background: var(--surface);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    /* ─── NAV ───────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nav-inner {
+      max-width: var(--max-w); margin: 0 auto; padding: 0 32px;
+      height: 56px; display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem; color: var(--ink); letter-spacing: 0.01em;
+    }
+
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+
+    .nav-links a {
+      font-size: 0.82rem; font-weight: 500; letter-spacing: 0.07em;
+      text-transform: uppercase; color: var(--ink-muted); transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--accent); text-decoration: none; }
+
+    /* ─── ABOUT ──────────────────────────────────────────────── */
+    .about-grid {
+      display: grid; grid-template-columns: 220px 1fr;
+      gap: 56px; align-items: start;
+    }
+
+    .about-photo-wrap img {
+      width: 220px; height: 280px; object-fit: cover;
+      border-radius: var(--radius); border: 1px solid var(--rule);
+    }
+
+    .about-content h1 { font-size: 2.8rem; margin-bottom: 4px; }
+
+    .about-tagline {
+      font-size: 0.9rem; color: var(--ink-muted);
+      margin-bottom: 24px; font-weight: 400; letter-spacing: 0.03em;
+    }
+
+    .about-bio { font-size: 1rem; color: var(--ink); max-width: 600px; margin-bottom: 32px; }
+
+    .about-links { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    /* ─── BUTTONS ────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px; border-radius: var(--radius);
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em;
+      cursor: pointer; border: none; transition: background 0.15s, color 0.15s;
+    }
+
+    .btn-primary { background: var(--accent); color: #0a1f12; }
+    .btn-primary:hover { background: #6ee7a0; text-decoration: none; color: #0a1f12; }
+
+    .btn-outline { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+    .btn-outline:hover { background: #22543d; text-decoration: none; color: var(--accent); }
+
+    /* ─── SECTION HEADERS ────────────────────────────────────── */
+    .section-header { margin-bottom: 48px; }
+
+    .section-label {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+    }
+
+    .section-header h2 { font-size: 2rem; }
+
+    /* ─── SKILLS ─────────────────────────────────────────────── */
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+
+    .skills-block h3 {
+      font-size: 0.82rem; font-family: 'DM Sans', sans-serif;
+      font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 14px;
+    }
+
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .tag {
+      background: var(--tag-bg); color: var(--tag-ink);
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.04em;
+      padding: 5px 12px; border-radius: 20px; border: 1px solid var(--rule);
+    }
+
+    /* ─── PROJECT CARDS ──────────────────────────────────────── */
+    .projects-list { display: flex; flex-direction: column; gap: 28px; }
+
+    .project-card {
+      display: grid; grid-template-columns: 320px 1fr;
+      border-radius: var(--radius); border: 1px solid var(--rule);
+      overflow: hidden; background: var(--surface-2);
+    }
+
+    .project-media {
+      background: var(--bg); min-height: 260px;
+      display: flex; align-items: stretch;
+    }
+
+    .project-media img { width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
+
+    /* multi-photo grid — Nifty Gadgets card */
+    .project-media.multi {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+    }
+
+    .project-media.multi img { width: 100%; height: 130px; object-fit: cover; border-radius: 0; }
+    .project-media.multi img:first-child { grid-column: 1 / -1; height: 150px; }
+
+    .project-body {
+      padding: 32px; display: flex; flex-direction: column;
+      gap: 12px; border-left: 1px solid var(--rule);
+    }
+
+    .project-number {
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--ink-muted);
+    }
+
+    .project-body h3 { font-size: 1.35rem; }
+
+    .project-desc { font-size: 0.95rem; color: var(--ink-muted); line-height: 1.8; }
+
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+
+    /* ─── COURSES GRID ───────────────────────────────────────── */
+    .courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+    .course-item {
+      background: var(--bg); border: 1px solid var(--rule);
+      border-radius: var(--radius); padding: 12px 16px;
+      font-size: 0.88rem; color: var(--ink);
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      padding: 36px 0; border-top: 1px solid var(--rule);
+      text-align: center; font-size: 0.82rem; color: var(--ink-muted);
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 760px) {
+      .about-grid { grid-template-columns: 1fr; gap: 28px; }
+      .about-photo-wrap img { width: 160px; height: 200px; }
+      .about-content h1 { font-size: 2rem; }
+      .project-card { grid-template-columns: 1fr; }
+      .project-media { min-height: 200px; }
+      .project-body { border-left: none; border-top: 1px solid var(--rule); padding: 24px; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .courses-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════ NAV ═══════════════════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">Liam Haynie</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#personal">Personal</a></li>
+      <li><a href="#coursework">Coursework</a></li>
+      <li><a href="#courses">Courses</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════ ABOUT ═════════════════════════════════ -->
+<div class="surface-band">
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <div class="about-photo-wrap">
+          <img src="headshot.jpg" alt="Liam Haynie">
+        </div>
+
+        <div class="about-content">
+          <h1>Liam Haynie</h1>
+          <p class="about-tagline">
+            Mechanical Engineering &nbsp;·&nbsp; Robotics &amp; Control &nbsp;·&nbsp; University of Utah &nbsp;·&nbsp; May 2027
+          </p>
+          <p class="about-bio">
+            Engineering student with a passion for building, experimenting, and figuring out how things work.
+            Outside of class, I spend my time rock climbing, designing puzzles, and tinkering around with
+            electromechanical systems.
+          </p>
+          <div class="about-links">
+            <a class="btn btn-primary" href="resume.pdf" download>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 3v12m0 0l-4-4m4 4l4-4"/><rect x="3" y="17" width="18" height="4" rx="1"/></svg>
+              Download Resume
+            </a>
+            <a class="btn btn-outline" href="https://www.linkedin.com/in/liamhaynie" target="_blank">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zm2-5a2 2 0 100 4 2 2 0 000-4z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════ SKILLS ════════════════════════════════ -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">What I work with</p>
+      <h2>Technical Skills</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skills-block">
+        <h3>Software &amp; Tools</h3>
+        <div class="tag-cloud">
+          <span class="tag">SolidWorks (CSWA Certified)</span>
+          <span class="tag">MATLAB</span>
+          <span class="tag">Arduino / C++</span>
+          <span class="tag">LTSpice</span>
+          <span class="tag">Oscilloscope</span>
+          <span class="tag">Digital Multimeter</span>
+          <span class="tag">Cura &amp; Bambu Studio</span>
+          <span class="tag">Adobe Premiere</span>
+          <span class="tag">Microsoft Office</span>
+        </div>
+      </div>
+      <div class="skills-block">
+        <h3>Fabrication &amp; Methods</h3>
+        <div class="tag-cloud">
+          <span class="tag">FDM 3D Printing</span>
+          <span class="tag">Soldering (Through-hole &amp; SMD)</span>
+          <span class="tag">Hands-on Prototyping</span>
+          <span class="tag">Sensor Integration</span>
+          <span class="tag">Experimental Data Collection</span>
+          <span class="tag">Statistical Data Analysis</span>
+          <span class="tag">Technical Documentation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ PERSONAL PROJECTS ═════════════════════════ -->
+<div class="surface-band">
+  <section id="personal">
+    <div class="container">
+
+      <div class="section-header">
+        <p class="section-label">Built on my own time</p>
+        <h2>Personal Projects</h2>
+      </div>
+
+      <div class="projects-list">
+
+        <!-- ── P1: Autono-mouse ──────────────────────────────────── -->
+        <div class="project-card">
+          <div class="project-media">
+            <img src="rat-car.png" alt="Autono-mouse Vehicle">
+          </div>
+          <div class="project-body">
+            <p class="project-number">Personal Project 01</p>
+            <h3>Autono-mouse Vehicle</h3>
+            <p class="project-desc">
+              A repurposed Elegoo robotics kit designed to provide environmental enrichment for pet rats
+              through autonomous driving. This project focused on rapid prototyping, Arduino development,
+              and sensor-feedback control systems using voltage detection and signal smoothing to create
+              stable, reliable inputs.
+            </p>
+            <div class="skill-tags">
+              <span class="tag">Arduino / C++</span>
+              <span class="tag">Sensor Feedback Control</span>
+              <span class="tag">Signal Smoothing</span>
+              <span class="tag">Rapid Prototyping</span>
+              <span class="tag">PWM Motor Control</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── P2: Pyramid Scheme ────────────────────────────────── -->
+        <div class="project-card">
+          <div class="project-media">
+            <img src="puzzle-box.png" alt="Pyramid Scheme Puzzle Box">
+          </div>
+          <div class="project-body">
+            <p class="project-number">Personal Project 02</p>
+            <h3>Pyramid Scheme — Sequential Puzzle Box</h3>
+            <p class="project-desc">
+              A 3D printed sequential puzzle box inspired by ancient Egyptian relics and archaeology.
+              This project emphasized creative problem solving, user experience design, and precise modeling
+              through mechanical puzzles, custom hieroglyphics, and dimensionally constrained moving components.
+            </p>
+            <div class="skill-tags">
+              <span class="tag">CAD / SolidWorks</span>
+              <span class="tag">FDM 3D Printing</span>
+              <span class="tag">Mechanism Design</span>
+              <span class="tag">UX Design</span>
+              <span class="tag">Tolerancing</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── P3: Nifty Gadgets (multi-photo) ──────────────────── -->
+        <div class="project-card">
+          <div class="project-media multi">
+            <img src="crap-courier.jpg" alt="Crap Courier">
+            <img src="monitor-stand.png" alt="Portable Monitor Stand">
+            <img src="sconce.jpg" alt="Sconce Hanger">
+            <img src="painting.jpg" alt="Painting Hanger">
+          </div>
+          <div class="project-body">
+            <p class="project-number">Personal Project 03</p>
+            <h3>Nifty Gadgets</h3>
+            <p class="project-desc">
+              <strong style="color:var(--ink);">Crap Courier</strong> — A portable dog waste carrier designed to make walks more comfortable and a lot less stinky.
+              Focused on practical product design and iterative prototyping, earning a "Best Design" badge in the pets category from Cults3D and a front-page feature.
+            </p>
+            <p class="project-desc">
+              <strong style="color:var(--ink);">Portable Monitor Stand</strong> — A stackable 3D printed stand balancing monitor stability, portability, and ease of printing for improved workspace ergonomics.
+            </p>
+            <p class="project-desc">
+              <strong style="color:var(--ink);">Sconce &amp; Painting Hangers</strong> — Damage-free mounting solutions for renters using removable command strips, designed for easy installation, wall protection, and aesthetic integration.
+            </p>
+            <div class="skill-tags">
+              <span class="tag">Product Design</span>
+              <span class="tag">CAD / SolidWorks</span>
+              <span class="tag">FDM 3D Printing</span>
+              <span class="tag">Iterative Prototyping</span>
+              <span class="tag">Manufacturability</span>
+            </div>
+          </div>
+        </div>
+
+        <!--
+          ╔══════════════════════════════════════════════════════╗
+          ║  ADD A NEW PERSONAL PROJECT — copy this block:      ║
+          ╚══════════════════════════════════════════════════════╝
+
+        <div class="project-card">
+          <div class="project-media">
+            <img src="YOUR-IMAGE.jpg" alt="Project Name">
+          </div>
+          <div class="project-body">
+            <p class="project-number">Personal Project 04</p>
+            <h3>Project Title</h3>
+            <p class="project-desc">Your description here.</p>
+            <div class="skill-tags">
+              <span class="tag">Skill 1</span>
+              <span class="tag">Skill 2</span>
+            </div>
+          </div>
+        </div>
+
+        -->
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════ COURSEWORK PROJECTS ═══════════════════════ -->
+<section id="coursework" style="padding: 72px 0;">
+  <div class="container">
+
+    <div class="section-header">
+      <p class="section-label">Academic Engineering</p>
+      <h2>Coursework Projects</h2>
+    </div>
+
+    <div class="projects-list">
+
+      <!-- ── C1: Ping Pong Launcher ────────────────────────────── -->
+      <div class="project-card">
+        <div class="project-media">
+          <img src="ping-pong-launcher.png" alt="Arduino Ping Pong Launcher">
+        </div>
+        <div class="project-body">
+          <p class="project-number">Coursework Project 01</p>
+          <h3>Arduino Ping Pong Launcher</h3>
+          <p class="project-desc">
+            An Arduino-powered robotic launcher capable of navigating a linear path and targeting ping pong balls
+            using image-based color detection. This project emphasized systems integration through sensor feedback,
+            motor control, kinematics, and computer-guided targeting logic.
+          </p>
+          <div class="skill-tags">
+            <span class="tag">Arduino / C++</span>
+            <span class="tag">Systems Integration</span>
+            <span class="tag">Computer Vision</span>
+            <span class="tag">Motor Control</span>
+            <span class="tag">Kinematics</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── C2: Axial Flow Water Pump ─────────────────────────── -->
+      <div class="project-card">
+        <div class="project-media">
+          <img src="water-pump.png" alt="Axial Flow Water Pump">
+        </div>
+        <div class="project-body">
+          <p class="project-number">Coursework Project 02</p>
+          <h3>Axial Flow Water Pump</h3>
+          <p class="project-desc">
+            Designed and fabricated a low-cost axial flow water pump using accessible materials.
+            This project focused on design fundamentals, iterative testing, and translating design
+            concepts and elements into a functional physical system.
+          </p>
+          <div class="skill-tags">
+            <span class="tag">Fluid Mechanics</span>
+            <span class="tag">CAD / SolidWorks</span>
+            <span class="tag">Fabrication</span>
+            <span class="tag">Iterative Testing</span>
+            <span class="tag">Design Fundamentals</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── C3: SpongeBob Roller Coaster ──────────────────────── -->
+      <div class="project-card">
+        <div class="project-media">
+          <img src="roller-coaster.png" alt="SpongeBob SquarePants Roller Coaster Segment">
+        </div>
+        <div class="project-body">
+          <p class="project-number">Coursework Project 03</p>
+          <h3>SpongeBob SquarePants Roller Coaster</h3>
+          <p class="project-desc">
+            Served as the primary SolidWorks designer for a SpongeBob SquarePants themed roller coaster
+            segment built from standardized coaster components. This project emphasized CAD modeling,
+            design validation, and translating engineering calculations into a manufacturable and
+            physically realizable design.
+          </p>
+          <div class="skill-tags">
+            <span class="tag">SolidWorks</span>
+            <span class="tag">CAD Modeling</span>
+            <span class="tag">Design Validation</span>
+            <span class="tag">Structural Analysis</span>
+            <span class="tag">Engineering Calculations</span>
+          </div>
+        </div>
+      </div>
+
+      <!--
+        ╔══════════════════════════════════════════════════════╗
+        ║  ADD A NEW COURSEWORK PROJECT — copy this block:    ║
+        ╚══════════════════════════════════════════════════════╝
+
+      <div class="project-card">
+        <div class="project-media">
+          <img src="YOUR-IMAGE.jpg" alt="Project Name">
+        </div>
+        <div class="project-body">
+          <p class="project-number">Coursework Project 04</p>
+          <h3>Project Title</h3>
+          <p class="project-desc">Your description here.</p>
+          <div class="skill-tags">
+            <span class="tag">Skill 1</span>
+            <span class="tag">Skill 2</span>
+          </div>
+        </div>
+      </div>
+
+      -->
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ RELEVANT COURSES ═════════════════════════ -->
+<div class="surface-band">
+  <section id="courses">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Academic Foundation</p>
+        <h2>Relevant Coursework</h2>
+      </div>
+      <div class="courses-grid">
+        <div class="course-item">Dynamics &amp; Control</div>
+        <div class="course-item">Mechatronics</div>
+        <div class="course-item">Fluid Mechanics</div>
+        <div class="course-item">Heat Transfer</div>
+        <div class="course-item">Thermodynamics</div>
+        <div class="course-item">Mechanics of Materials</div>
+        <div class="course-item">Manufacturing Systems</div>
+        <div class="course-item">Numerical Methods</div>
+        <div class="course-item">Probability &amp; Statistics</div>
+        <div class="course-item">PDEs &amp; Linear Algebra</div>
+        <div class="course-item">Electrical Engineering Fundamentals</div>
+        <div class="course-item">Materials Science</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════ FOOTER ════════════════════════════════ -->
+<footer>
+  <p>© 2025 Liam Haynie</p>
+</footer>
+
+</body>
+</html>
